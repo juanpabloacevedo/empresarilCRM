@@ -1,0 +1,521 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/comf-template-menu2.xhtml">
+  	<ui:define name="head">:: CRM ::</ui:define>
+	<ui:define name="body">
+		<h:body>
+			<h:form >
+			<p:messages id="messages" globalOnly="true" autoUpdate="true" closable="true" showDetail="true" showSummary="true"/>
+				<div align="center">
+				<br /><br />
+					<h:outputLabel value="BIENVENIDO "/>#{prin.usLoged} <h:outputLabel value="AL SISTEMA DE CRM"/>
+				</div>
+				 <p:tabView>
+        			<p:tab title="#{msg.headerCRMperiodo}">
+        				<p:panel style="width:1100px; height:800px" id="panelBusqueda1" header="#{msg.haderNombreCat}">
+							<div align="center">
+								<p:outputLabel for="crmFechaInicio" value="#{msg.labelFechaInicio}"/>
+								<p:calendar pattern="yyyy/MM/dd" id="crmFechaInicio" value="#{crm.periodo.fechaInicio}" showOn="button" />
+								<p:outputLabel for="crmFechaFin" value="#{msg.labelFechaFin}"/>
+								<p:calendar id="crmFechaFin" value="#{crm.periodo.fechaFin}" showOn="button"/>
+								<p:outputLabel for="crmEstado" value="#{msg.labelEstado}"/>
+								<p:inputText id="crmEstado" value="#{crm.periodo.estado}"/>
+								<br/><br/>
+								<div align="center">
+									<p:commandButton value="#{msg.botonGuardar}" action="#{crm.crearPeriodo()}" icon="ui-icon-extlink" update="@form,panelResul1"/>
+							
+								</div>
+							</div>
+							
+	
+}
+						</p:panel>
+						<p:panel style="width:1100px; height:800px" id="panelResul1" header="#{msg.haderNombreCat}" visible="#{fact.verPanel}">
+							<p:dataTable var="datos" value="#{fact.categoriaProductos}" rows="10" paginator="true"
+			                	 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			                 	rowsPerPageTemplate="5,10,15">
+			                 	<p:column headerText="#{msg.tabCod}">
+						            <h:outputText value="#{datos.codigo}" />
+						        </p:column>
+						 
+						        <p:column headerText="#{msg.tabCarac}">
+						            <h:outputText value="#{datos.caracteristica}" />
+						        </p:column>
+						 
+						        <p:column headerText="#{msg.tabNom}">
+						            <h:outputText value="#{datos.nombre}" />
+						        </p:column>
+						 
+						        <p:column headerText="#{msg.tabVer}"  >
+									<div align="center">
+										<p:commandButton action="#{fact.verEditarCategoria(datos)}" ajax="false" icon="ui-icon-extlink" update="@form,editCa"/>
+										<p:commandButton action="#{fact.borrarCategoria(datos)}" ajax="false" icon="ui-icon-extlink" update="@form"/>
+									</div>
+								</p:column>			 
+							</p:dataTable>
+						</p:panel>
+						</p:tab>
+	        			<p:tab title="#{msg.headerCRMcampania}">
+        				<p:panel style="width:1100px; height:800px" id="panelBusqueda2" header="#{msg.haderNombreCat}">
+							<div align="center">
+							<p:outputLabel for="crmnombre" value="#{msg.labelNom}"/>
+								<p:inputText id="crmnombre" value="#{crmCampania.campania.nombre}"/>
+									<p:outputLabel for="crmdescripcion" value="#{msg.lbCRMDescripcion}"/>
+								<p:inputText id="crmdescripcion" value="#{crmCampania.campania.descripcion}"/>
+								<p:outputLabel for="crmCampaniaFechaInicio" value="#{msg.labelFechaInicio}"/>
+								<p:calendar id="crmCampaniaFechaInicio" value="#{crmCampania.campania.fechaInicio}" showOn="button" />
+								<p:outputLabel for="crmCampaniaFechaFin" value="#{msg.labelFechaFin}"/>
+								<p:calendar id="crmCampaniaFechaFin" value="#{crmCampania.campania.fechaFin}"/>
+								<p:outputLabel for="crmPeriodoCodigo" value="#{msg.lbCRMPeriodoCodigo}"/>
+								<p:inputText id="crmPeriodoCodigo" value="#{crmCampania.campania.periodoCod}"/>
+								<p:outputLabel for="crmValor" value="#{msg.lbCRMValor}"/>
+								<p:inputNumber id="crmValor" value="#{crmCampania.campania.valor}"/>
+							
+								<p:outputLabel for="crmCampaniaEstado" value="#{msg.labelEstado}"/>
+								<p:inputText id="crmCampaniaEstado" value="#{crmCampania.campania.estado}"/>
+								
+							
+								<br/><br/>
+								<div align="center">
+									<p:commandButton value="#{msg.botonGuardar}" action="#{crmCampania.crearcampania()}" icon="ui-icon-extlink" update="@form,panelResul2"/>
+							
+								</div>
+							</div>
+						</p:panel>
+						<p:panel style="width:1100px; height:800px" id="panelResul2" header="#{msg.haderNombreCat}" visible="#{fact.verPanel}">
+							<p:dataTable var="datos" value="#{fact.categoriaProductos}" rows="10" paginator="true"
+			                	 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			                 	rowsPerPageTemplate="5,10,15">
+			                 	<p:column headerText="#{msg.tabCod}">
+						            <h:outputText value="#{datos.codigo}" />
+						        </p:column>
+						 
+						        <p:column headerText="#{msg.tabCarac}">
+						            <h:outputText value="#{datos.caracteristica}" />
+						        </p:column>
+						 
+						        <p:column headerText="#{msg.tabNom}">
+						            <h:outputText value="#{datos.nombre}" />
+						        </p:column>
+						 
+						        <p:column headerText="#{msg.tabVer}"  >
+									<div align="center">
+										<p:commandButton action="#{fact.verEditarCategoria(datos)}" ajax="false" icon="ui-icon-extlink" update="@form,editCa"/>
+										<p:commandButton action="#{fact.borrarCategoria(datos)}" ajax="false" icon="ui-icon-extlink" update="@form"/>
+									</div>
+								</p:column>			 
+							</p:dataTable>
+						</p:panel>
+						
+				
+						</p:tab>
+						<p:tab title="#{msg.headerCRMMedio}">
+
+						<p:panel style="width:1100px; height:800px" id="panelBusqueda3"
+							header="#{msg.haderNombreCat}"  >
+
+							<div align="center">
+
+							<p:outputLabel for="crmNombre"
+									value="#{msg.labelNombreMedio}" />
+
+						      <p:inputText id="crmNombre" value="#{crmmedio.medio.nombre}" />
+
+								<p:outputLabel for="crmCodigo" value="#{msg.labelCodigoMedio}" />
+
+								<p:inputNumber id="crmCodigo" value="#{crmmedio.medio.codigo}" />
+
+								<p:outputLabel for="crmDescripcion" value="#{msg.labelDescripcionMedio}" />
+
+								<p:inputText id="crmDescripcion" value="#{crmmedio.medio.descripcion}" />
+								
+								<p:outputLabel for="crmTipoMedioCod" value="#{msg.labelTipoMedioCod}" />
+
+								<p:inputNumber id="crmTipoMedioCod" value="#{crmmedio.medio.tipoMedioCod}" />
+								
+								<p:outputLabel for="crmEventoCod" value="#{msg.labelTipoMedioCod}" />
+
+								<p:inputNumber id="crmEventoCod" value="#{crmmedio.medio.eventoCod}" />
+								
+								<p:outputLabel for="crmRecursosCod" value="#{msg.labelRecursoCod}" />
+
+								<p:inputNumber id="crmRecursosCod" value="#{crmmedio.medio.recursoCod}" />
+								
+								<p:outputLabel for="crmvalor" value="#{msg.labelValor}" />
+
+								<p:inputNumber id="crmvalor" value="#{crmmedio.medio.valor}" />
+								
+								<p:outputLabel for="crmEstadoMedio" value="#{msg.labelestadoMedio}" />
+
+								<p:inputText id="crmEstadoMedio" value="#{crmmedio.medio.estado}" />
+								
+								
+
+								<br />
+								<br />
+
+								<div align="center">
+
+									<p:commandButton value="#{msg.botonGuardar}"
+										action="#{crm.crearPeriodo()}" icon="ui-icon-extlink"
+										update="@form,panelResul3" />
+
+
+
+								</div>
+
+							</div>
+
+						</p:panel>
+
+						<p:panel style="width:1100px; height:800px" id="panelResul3"
+							header="#{msg.haderNombreCat}" visible="#{fact.verPanel}">
+
+							<p:dataTable var="datos" value="#{fact.categoriaProductos}"
+								rows="10" paginator="true"
+								paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+								rowsPerPageTemplate="5,10,15">
+
+								<p:column headerText="#{msg.tabCod}">
+
+									<h:outputText value="#{datos.codigo}" />
+
+								</p:column>
+
+
+
+								<p:column headerText="#{msg.tabCarac}">
+
+									<h:outputText value="#{datos.caracteristica}" />
+
+								</p:column>
+
+
+
+								<p:column headerText="#{msg.tabNom}">
+
+									<h:outputText value="#{datos.nombre}" />
+
+								</p:column>
+
+
+
+								<p:column headerText="#{msg.tabVer}">
+
+									<div align="center">
+
+										<p:commandButton action="#{fact.verEditarCategoria(datos)}"
+											ajax="false" icon="ui-icon-extlink" update="@form,editCa" />
+
+										<p:commandButton action="#{fact.borrarCategoria(datos)}"
+											ajax="false" icon="ui-icon-extlink" update="@form" />
+
+									</div>
+
+								</p:column>
+
+							</p:dataTable>
+
+						</p:panel>
+
+					</p:tab>
+					
+					
+				<p:tab title="#{msg.headerCRMTipomedio}">
+
+						<p:panel style="width:1100px; height:800px" id="panelBusqueda4"
+							header="#{msg.haderNombreCat}"  >
+
+							<div align="center">
+
+							<p:outputLabel for="crmTipoMedioNombre" value="#{msg.labelNombreMedio}" />
+
+						      <p:inputText id="crmTipoMedioNombre" value="#{crmTipomedio.tipoMedio.nombre}" />
+
+
+
+								<p:outputLabel for="crmTipoMedioDescripcion" value="#{msg.labelDescripcionMedio}" />
+
+								<p:inputText id="crmTipoMedioDescripcion" value="#{crmTipomedio.tipoMedio.descripcion}" />
+							
+								<p:outputLabel for="crmTipoMediovalorProm" value="#{msg.labelValorTipoMedio}" />
+
+								<p:inputText id="crmTipoMediovalorProm" value="#{crmTipomedio.tipoMedio.valorProm}" />
+								
+								<p:outputLabel for="crmTipoMedioEstado" value="#{msg.labelestadoMedio}" />
+
+								<p:inputText id="crmTipoMedioEstado" value="#{crmTipomedio.tipoMedio.estado}" />
+								
+								
+
+								<br />
+								<br />
+
+								<div align="center">
+
+									<p:commandButton value="#{msg.botonGuardar}"
+										action="#{crm.crearPeriodo()}" icon="ui-icon-extlink"
+										update="@form,panelResul4" />
+
+
+
+								</div>
+
+							</div>
+
+						</p:panel>
+
+						<p:panel style="width:1100px; height:800px" id="panelResul4"
+							header="#{msg.haderNombreCat}" visible="#{fact.verPanel}">
+
+							<p:dataTable var="datos" value="#{fact.categoriaProductos}"
+								rows="10" paginator="true"
+								paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+								rowsPerPageTemplate="5,10,15">
+
+								<p:column headerText="#{msg.tabCod}">
+
+									<h:outputText value="#{datos.codigo}" />
+
+								</p:column>
+
+
+
+								<p:column headerText="#{msg.tabCarac}">
+
+									<h:outputText value="#{datos.caracteristica}" />
+
+								</p:column>
+
+
+
+								<p:column headerText="#{msg.tabNom}">
+
+									<h:outputText value="#{datos.nombre}" />
+
+								</p:column>
+
+
+
+								<p:column headerText="#{msg.tabVer}">
+
+									<div align="center">
+
+										<p:commandButton action="#{fact.verEditarCategoria(datos)}"
+											ajax="false" icon="ui-icon-extlink" update="@form,editCa" />
+
+										<p:commandButton action="#{fact.borrarCategoria(datos)}"
+											ajax="false" icon="ui-icon-extlink" update="@form" />
+
+									</div>
+
+								</p:column>
+
+							</p:dataTable>
+
+						</p:panel>
+
+					</p:tab>
+					
+						<p:tab title="#{msg.headerCRMTRecurso}">
+
+						<p:panel style="width:1100px; height:800px" id="panelBusqueda5"
+							header="#{msg.haderNombreCat}"  >
+
+							<div align="center">
+
+							<p:outputLabel for="crmRecursoNombre" value="#{msg.labelNombreMedio}" />
+
+						      <p:inputText id="crmRecursoNombre" value="#{crmRecurso.recurso.nombre}" />
+
+								<p:outputLabel for="crmRecursoTipo" value="#{msg.labelTipo}" />
+
+								<p:inputText id="crmRecursoTipo" value="#{crmRecurso.recurso.tipo}" />
+
+								<p:outputLabel for="crmRecursoDescripcion" value="#{msg.labelDescripcionMedio}" />
+
+								<p:inputText id="crmRecursoDescripcion" value="#{crmRecurso.recurso.descripcion}" />
+							
+								<p:outputLabel for="crmRecursovalor" value="#{msg.labelValor}" />
+
+								<p:inputNumber id="crmRecursovalor" value="#{crmRecurso.recurso.valor}" />
+								
+								
+								
+								
+
+								<br />
+								<br />
+
+								<div align="center">
+
+									<p:commandButton value="#{msg.botonGuardar}"
+										action="#{crm.crearPeriodo()}" icon="ui-icon-extlink"
+										update="@form,panelResul5" />
+
+
+
+								</div>
+
+							</div>
+
+						</p:panel>
+
+						<p:panel style="width:1100px; height:800px" id="panelResul5"
+							header="#{msg.haderNombreCat}" visible="#{fact.verPanel}">
+
+							<p:dataTable var="datos" value="#{fact.categoriaProductos}"
+								rows="10" paginator="true"
+								paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+								rowsPerPageTemplate="5,10,15">
+
+								<p:column headerText="#{msg.tabCod}">
+
+									<h:outputText value="#{datos.codigo}" />
+
+								</p:column>
+
+
+
+								<p:column headerText="#{msg.tabCarac}">
+
+									<h:outputText value="#{datos.caracteristica}" />
+
+								</p:column>
+
+
+
+								<p:column headerText="#{msg.tabNom}">
+
+									<h:outputText value="#{datos.nombre}" />
+
+								</p:column>
+
+
+
+								<p:column headerText="#{msg.tabVer}">
+
+									<div align="center">
+
+										<p:commandButton action="#{fact.verEditarCategoria(datos)}"
+											ajax="false" icon="ui-icon-extlink" update="@form,editCa" />
+
+										<p:commandButton action="#{fact.borrarCategoria(datos)}"
+											ajax="false" icon="ui-icon-extlink" update="@form" />
+
+									</div>
+
+								</p:column>
+
+							</p:dataTable>
+
+						</p:panel>
+
+					</p:tab>
+					<p:tab title="#{msg.headerCRMEvento}">
+
+						<p:panel style="width:1100px; height:800px" id="panelBusqueda5"
+							header="#{msg.haderNombreCat}"  >
+
+							<div align="center">
+
+							<p:outputLabel for="crmEventoNombre" value="#{msg.labelNombreMedio}" />
+
+						      <p:inputText id="crmEventoNombre" value="#{crmEvento.evento.nombre}" />
+
+								
+
+								<p:outputLabel for="crmEventooDescripcion" value="#{msg.labelDescripcionMedio}" />
+
+								<p:inputText id="crmEventoDescripcion" value="#{crmEvento.evento.descripcion}" />
+								<p:outputLabel for="crmEventoFecha" value="#{msg.labelFecha}" />
+
+								<p:Calendar id="crmEventoFecha" value="#{crmEvento.evento.fecha}" />							
+								
+								<p:outputLabel for="crmEventoCampacod" value="#{msg.labelDescripcionMedio}" />
+
+								<p:inputText id="crmEventoCampacod" value="#{crmEvento.evento.campaniaCod}" />			
+								
+								<p:outputLabel for="crmEventoEstado" value="#{msg.labelestadoMedio}" />
+
+								<p:inputText id="crmEventoEstado" value="#{crmEvento.evento.estado}" />
+								
+								
+
+								<br />
+								<br />
+
+								<div align="center">
+
+									<p:commandButton value="#{msg.botonGuardar}"
+										action="#{crm.crearPeriodo()}" icon="ui-icon-extlink"
+										update="@form,panelResul5" />
+
+
+
+								</div>
+
+							</div>
+
+						</p:panel>
+
+						<p:panel style="width:1100px; height:800px" id="panelResul5"
+							header="#{msg.haderNombreCat}" visible="#{fact.verPanel}">
+
+							<p:dataTable var="datos" value="#{fact.categoriaProductos}"
+								rows="10" paginator="true"
+								paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+								rowsPerPageTemplate="5,10,15">
+
+								<p:column headerText="#{msg.tabCod}">
+
+									<h:outputText value="#{datos.codigo}" />
+
+								</p:column>
+
+
+
+								<p:column headerText="#{msg.tabCarac}">
+
+									<h:outputText value="#{datos.caracteristica}" />
+
+								</p:column>
+
+
+
+								<p:column headerText="#{msg.tabNom}">
+
+									<h:outputText value="#{datos.nombre}" />
+
+								</p:column>
+
+
+
+								<p:column headerText="#{msg.tabVer}">
+
+									<div align="center">
+
+										<p:commandButton action="#{fact.verEditarCategoria(datos)}"
+											ajax="false" icon="ui-icon-extlink" update="@form,editCa" />
+
+										<p:commandButton action="#{fact.borrarCategoria(datos)}"
+											ajax="false" icon="ui-icon-extlink" update="@form" />
+
+									</div>
+
+								</p:column>
+
+							</p:dataTable>
+
+						</p:panel>
+
+					</p:tab>
+        		</p:tabView>
+		
+			</h:form>
+		</h:body>
+	</ui:define>
+</ui:composition> 

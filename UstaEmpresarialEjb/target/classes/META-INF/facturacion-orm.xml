@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="2.0"
+                 xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd">
+    <!--consulta N°1 -->
+    <named-query name="listarcategoria.CATEGORIAPRODUCTO">
+        <query>
+            SELECT c
+            FROM CategoriaProducto c
+        </query>
+    </named-query>
+    <!--consulta N°2 -->
+    <named-query
+            name="listarcategoria.CATEGORIAPRODUCTONBYNAME">
+        <query>
+            SELECT c
+            FROM CategoriaProducto c
+            WHERE c.nombre = :nombre
+        </query>
+    </named-query>
+    <!--consulta N°3 -->
+    <named-query
+            name="listarcategorias.CATEGORIAPRODUCTONBYNAME">
+        <query>
+            SELECT c
+            FROM CategoriaProducto c
+            WHERE c.nombre LIKE '%:nombre%'
+        </query>
+    </named-query>
+    <!--consulta N°4 -->
+    <named-query name="listarcategoria.CATEGORIAPRODUCTONBYID">
+        <query>
+            SELECT c
+            FROM CategoriaProducto c
+            WHERE c.codigo=:id
+        </query>
+    </named-query>
+
+    <!--consulta N°5 -->
+    <named-query name="listarproveedor.PROVEEDOR">
+        <query>
+            SELECT p
+            FROM Proveedor p
+        </query>
+    </named-query>
+    <!--consulta N°6 -->
+    <named-query name="listarproveedor.PROVEEDORBYNAME">
+        <query>
+            SELECT p
+            FROM Proveedor p
+            WHERE p.nombre=:nombre
+        </query>
+    </named-query>
+    <!--consulta N°7 -->
+    <named-query name="listarproveedores.PROVEEDORBYNAME">
+        <query>
+            SELECT p
+            FROM Proveedor p
+            WHERE p.nombre LIKE '%:nombre%'
+        </query>
+    </named-query>
+    <!--consulta N°8 -->
+    <named-query name="listarproveedor.PROVEEDORBYID">
+        <query>
+            SELECT p
+            FROM Proveedor p
+            WHERE p.nombre=:nombre
+        </query>
+    </named-query>
+    <!--consulta N°9 -->
+
+    <named-query name="listarcliente.CLIENTE">
+        <query>
+            SELECT c
+            FROM Cliente c
+        </query>
+    </named-query>
+    <!--consulta N°10 -->
+    <named-query name="listarcliente.CLIENTEBYNAME">
+        <query>
+            SELECT c
+            FROM Cliente c
+            WHERE c.nombre=:nombre
+        </query>
+    </named-query>
+    <!--consulta N°11 -->
+
+    <named-query name="listarclientes.CLIENTEBYNAME">
+        <query>
+            SELECT c
+            FROM Cliente c
+            WHERE c.nombre like '%:nombre%'
+        </query>
+    </named-query>
+    <named-query name="listarcliente.CLIENTEBYID">
+        <query>
+            SELECT c
+            FROM Cliente c
+            WHERE c.codigo=:id
+        </query>
+    </named-query>
+    <!--consulta N°12 -->
+    <named-query name="listarproducto.PRODUCTO">
+        <query>
+            SELECT p
+            FROM Producto p
+        </query>
+    </named-query>
+    <!--consulta N°13 -->
+    <named-query name="listarproducto.PRODUCTOBYNAME">
+        <query>
+            SELECT p
+            FROM Producto p
+            WHERE p.nombre=:nombre
+        </query>
+    </named-query>
+    <!--consulta N°14 -->
+    <named-query name="listarproductos.PRODUCTOBYNAME">
+        <query>
+            SELECT p
+            FROM Producto p
+            WHERE p.nombre like '%:nombre%'
+        </query>
+    </named-query>
+    <!--consulta N°15 -->
+    <named-query name="listarproducto.PRODUCTOBYID">
+        <query>
+            SELECT p
+            FROM Producto p
+            WHERE p.codigo=:id
+        </query>
+    </named-query>
+    <!--consulta N°16 -->
+    <named-query name="listarventa.VENTA">
+        <query>
+            SELECT v
+            FROM Venta v
+        </query>
+    </named-query>
+    <!--consulta N°17 -->
+    <named-query name="listarventa.VENTABYID">
+        <query>
+            SELECT v
+            FROM Venta v
+            WHERE v.codigo=:id
+        </query>
+    </named-query>
+    <!--consulta N°18 -->
+    <named-query name="listarproductostock.PRODUCTOSTOCK">
+        <query>
+            SELECT pp
+            FROM ProveedorProducto pp
+        </query>
+    </named-query>
+    <!--consulta N°19 -->
+    <named-query
+            name="listarproveedorproducto.PROVEEDORPRODUCTO">
+        <query>
+            SELECT pp
+            FROM ProveedorProducto pp
+        </query>
+    </named-query>
+    <!--consulta N°20 -->
+    <named-query
+            name="listarproveedorproducto.PROVEEDORPRODUCTOBYID">
+        <query>
+            SELECT pp
+            FROM ProveedorProducto pp
+            WHERE pp.id=:id
+        </query>
+    </named-query>
+    <!--consulta N°21 -->
+    <named-query name="listarventadetalle.VENTADETALLE">
+        <query>
+            SELECT vd
+            FROM VentaDetalle vd
+        </query>
+    </named-query>
+    <!--consulta N°22 -->
+    <named-query name="listarventadetalle.VENTADETALLEBYID">
+        <query>
+            SELECT vd
+            FROM VentaDetalle vd
+            WHERE vd.id=:id
+        </query>
+    </named-query>
+    <!--consulta N°23 -->
+    <named-native-query
+            name="VENTADETALLE.CONSULTAR_TRES_PRODUCTOS"
+            result-set-mapping="result">
+        <query>
+		<![CDATA[
+
+                        select COUNT(*) as total_productos, p."PROVEEDOR_CODIGO" as proveedor
+                        from facturacion."PROVEEDOR_PRODUCTO" p ,facturacion."VENTA_DETALLE" a
+                        where p."PRECIO_UNITARIO" is not null  and a."PRODUCTO_CODIGO"=p."PRODUCTO_CODIGO"
+                        and a."PROVEEDOR_CODIGO"=p."PROVEEDOR_CODIGO" and a."CANTIDAD" is not null
+                        group by p."PROVEEDOR_CODIGO"
+                        having count(*)<3
+
+            ]]>
+	</query>
+    </named-native-query>
+    <!--consulta N°24 -->
+    <sql-result-set-mapping name="result">
+        <column-result name="total_productos"/>
+        <column-result name="proveedor"/>
+    </sql-result-set-mapping>
+
+
+</entity-mappings>

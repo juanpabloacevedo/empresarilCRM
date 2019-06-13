@@ -1,0 +1,24 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1"/>
+    <link rel="stylesheet" href="../../CSS/cambios.css"/>
+</h:head>
+
+<h:body>
+    <p:spinner/>
+    <h:form>
+        <h3>Basic</h3>
+        <p:inputText/>
+
+        <h3>Floating Label</h3>
+        <span class="ui-float-label">
+       <p:inputText id="float-input" value="#{basicView.text}"/>
+       <p:outputLabel for="@previous" value="Username"/>
+   </span>
+
+    </h:form>
+</h:body>
+</html>

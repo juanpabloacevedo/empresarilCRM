@@ -1,0 +1,86 @@
+---------------------------------------------------------------grupo 3---------------------------------------------
+ <datasource jndi-name="java:jboss/env/jdbc/usta" pool-name="finanzas" statistics-enabled="true">
+                    <connection-url>jdbc:postgresql://localhost:5432/usta_empresarial</connection-url>
+                    <datasource-class>org.postgresql.ds.PGSimpleDataSource</datasource-class>
+                    <driver>postgresql</driver>
+                    <pool>
+                        <min-pool-size>1</min-pool-size>
+                        <max-pool-size>100</max-pool-size>
+                        <prefill>false</prefill>
+                        <use-strict-min>false</use-strict-min>
+                        <flush-strategy>FailingConnectionOnly</flush-strategy>
+                    </pool>
+                    <security>
+                        <user-name>postgres</user-name>
+                        <password>12345</password>
+                    </security>
+ </datasource>
+
+----------------------------------------------------------grupo 1------------------------------------------------------
+<datasource jndi-name="java:jboss/env/jdbc/nomina"
+					pool-name="nomina" use-java-context="true">
+					<connection-url>jdbc:postgresql://localhost:5432/usta_empresarial</connection-url>
+					<driver-class>org.postgresql.Driver</driver-class>
+					<driver>postgresql</driver>
+					<pool>
+						<min-pool-size>1</min-pool-size>
+						<max-pool-size>100</max-pool-size>
+						<prefill>false</prefill>
+						<use-strict-min>false</use-strict-min>
+						<flush-strategy>FailingConnectionOnly</flush-strategy>
+					</pool>
+					<security>
+						<user-name>postgres</user-name>
+						<password>root</password>
+					</security>
+					<validation>
+						<valid-connection-checker
+							class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLValidConnectionChecker" />
+						<background-validation>true</background-validation>
+						<exception-sorter
+							class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLExceptionSorter" />
+					</validation>
+</datasource>
+
+--------------------------------------------------------Grupo 5---------------------------------------------------------------------- 
+<datasource jndi-name="java:jboss/datasources/ExampleDS" pool-name="ExampleDS" enabled="true" use-java-context="true">
+                    <connection-url>jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE</connection-url>
+                    <driver>h2</driver>
+                    <security>
+                        <user-name>sa</user-name>
+                        <password>sa</password>
+                    </security>
+</datasource>
+
+-----------------------------------------------------------grupo 4---------------------------------------------------------------------------
+-<datasource pool-name="ustaEmpresarial" jndi-name="java:/ustaEmpresarialDS">
+
+<connection-url>jdbc:postgresql://localhost:5432/usta_empresarial</connection-url>
+
+<driver-class>org.postgresql.Driver</driver-class>
+
+<datasource-class>org.postgresql.ds.PGSimpleDataSource</datasource-class>
+
+<driver>postgresql</driver>
+
+
+-<security>
+
+<user-name>postgres</user-name>
+
+<password>12345</password>
+
+</security>
+
+
+-<validation>
+
+<valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLValidConnectionChecker"/>
+
+<background-validation>true</background-validation>
+
+<exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLExceptionSorter"/>
+
+</validation>
+
+</datasource>

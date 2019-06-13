@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="2.0"
+                 xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd">
+
+    <named-query name="Usuario.findAll">
+        <query>
+            SELECT u
+            FROM Usuario u
+        </query>
+    </named-query>
+
+    <named-query name="Usuario.encontrarPorNombre">
+        <query>
+            SELECT u
+            FROM Usuario u
+            WHERE u.nombre like '%:nombre%'
+        </query>
+    </named-query>
+
+    <named-query name="Usuario.TRAER_USUARIO">
+        <query>
+            SELECT u
+            FROM Usuario u
+            WHERE u.nombre = :usua
+            AND u.password = :pass
+        </query>
+    </named-query>
+
+    <named-query name="RolPermiso.LISTAR_PERMISOS">
+        <query>
+            SELECT r
+            FROM RolPermiso r
+        </query>
+    </named-query>
+
+    <named-query name="RolUsuario.find_all">
+        <query>
+            SELECT R
+            FROM RolUsuario R
+        </query>
+    </named-query>
+
+    <named-query name="Rol.TRAER_ROL">
+        <query>
+            SELECT r
+            FROM Rol r
+        </query>
+    </named-query>
+
+    <named-query name="Rol.ENCONTRAR_NOMBRE_ROL">
+        <query>
+            SELECT r
+            FROM Rol r
+            WHERE r.nombre like '%:nombre%'
+        </query>
+    </named-query>
+
+    <named-query name="UsuarioLog.TRAER_USUARIO_LOG">
+        <query>
+            SELECT ul
+            FROM UsuarioLog ul
+        </query>
+    </named-query>
+
+    <named-query
+            name="UsuarioLog.ENCONTRAR_NOMBRE_PROCESO_USUARIO_LOG">
+        <query>
+            SELECT ul
+            FROM UsuarioLog ul
+            WHERE ul.proceso like '%:proceso%'
+        </query>
+    </named-query>
+
+    <named-query name="Permiso.TRAER_PERMISO">
+        <query>
+            SELECT p
+            FROM Permiso p
+        </query>
+    </named-query>
+
+    <named-query name="Permiso.ENCONTRAR_NOMBRE_PERMISO">
+        <query>
+            SELECT p
+            FROM Permiso p
+            WHERE p.nombre like '%:nombre%'
+        </query>
+    </named-query>
+
+    <named-native-query name="UsuarioLog.ENCONTRAR_MODULO_USUARIO"
+                        result-set-mapping="Usuariolog_ENCONTRAR_MODULO_USUARIO_MAP">
+        <query>
+                SELECT u.nombre AS nombreusuario,
+                p.nombre AS nombrepermiso
+                FROM usuario u
+                         INNER JOIN rol_usuario ru ON u.codigo = ru.usuario_cod
+                         INNER JOIN rol r ON r.codigo = ru.rol_cod
+                         INNER JOIN rol_permiso rp ON rp.rol_cod = r.codigo
+                         INNER JOIN permiso p ON p.codigo = rp.permiso_cod
+                ORDER BY u.nombre DESC
+		</query>
+    </named-native-query>
+
+    <sql-result-set-mapping name="Usuariolog_ENCONTRAR_MODULO_USUARIO_MAP">
+        <column-result name="nombreusuario"/>
+        <column-result name="nombrepermiso"/>
+    </sql-result-set-mapping>
+
+</entity-mappings>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="NominaModelo">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<jta-data-source>java:jboss/env/jdbc/crm</jta-data-source>
+		<class>co.com.UstaEmpresarial.nomina.modelo.Nomina</class>
+		<class>co.com.UstaEmpresarial.nomina.modelo.NominaPK</class>
+		<class>co.com.UstaEmpresarial.nomina.modelo.Cargo</class>
+		<class>co.com.UstaEmpresarial.nomina.modelo.Concepto</class>
+		<class>co.com.UstaEmpresarial.nomina.modelo.Contrato</class>
+		<class>co.com.UstaEmpresarial.nomina.modelo.Dependencia</class>
+		<class>co.com.UstaEmpresarial.nomina.modelo.HojaVida</class>
+		<class>co.com.UstaEmpresarial.nomina.modelo.Periodo</class>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		<shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
+		<properties>
+			<property name="hibernate.connection.driver_class"
+					  value="net.sourceforge.jtds.jdbc.Driver"/>
+		</properties>
+	</persistence-unit>
+</persistence>

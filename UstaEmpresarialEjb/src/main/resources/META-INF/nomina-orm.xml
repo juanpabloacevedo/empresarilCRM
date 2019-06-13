@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="2.0"
+                 xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd">
+
+    <named-query name="Cargo.LISTAR_CARGO">
+        <query>
+            SELECT c
+            FROM Cargo c
+        </query>
+    </named-query>
+
+    <named-query name="Dependencia.LISTAR_POR_DEPENDENCIA">
+        <query>
+            SELECT d
+            FROM Dependencia d
+        </query>
+    </named-query>
+
+    <named-query name="Hoja_vida.LISTAR_HOJA_VIDA">
+        <query>
+            SELECT h
+            FROM HojaVida h
+        </query>
+    </named-query>
+
+
+    <named-query name="Nomina.LISTAR_NOMINA">
+        <query>
+            SELECT n
+            FROM Nomina n
+        </query>
+    </named-query>
+
+    <named-query name="Nomina.COMPARAR_LIQUIDACION">
+        <query>
+            SELECT n
+            FROM Nomina n
+        </query>
+    </named-query>
+
+    <named-query name="Periodo.LISTAR_PERIODO">
+        <query>
+            SELECT p
+            FROM Periodo p
+        </query>
+    </named-query>
+
+    <named-native-query name="Contrato.ENCONTRAR_POR_DEPENDENCIA"
+                        result-set-mapping="MAP_CONTRATO_ENCONTRAR_POR_DEPENDENCIA">
+        <query>
+            select CONCAT(h.nombre, ' ', h.apellido) as nombrepersona,
+            h.direccion as direccion,
+            h.telefono as telefono,
+            de.nombre as nombredependencia,
+            de.estado as dependenciaestado,
+            de.dependencia_padre as dependenciapadre
+            from contrato c,
+            dependencia de,
+            hoja_vida h
+            where c.dependencia_cod = de.codigo
+            and c.hoja_vida_doc = h.documento;
+        </query>
+    </named-native-query>
+
+    <named-native-query name="Contrato.ENCONTRAR_POR_CARGO" result-set-mapping="MAP_CONTRATO_ENCONTRAR_POR_CARGO">
+        <query>
+            select CONCAT(h.nombre, ' ', h.apellido) as nombrepersona,
+            h.direccion as direccion,
+            h.telefono as telefono,
+            ca.nombre as nombrecargo,
+            ca.funcion as funcion,
+            ca.competencias as competencias
+            from contrato c,
+            cargo ca,
+            hoja_vida h
+            where c.cargo_cod = ca.codigo
+            and c.hoja_vida_doc = h.documento;
+        </query>
+    </named-native-query>
+
+    <named-native-query name="Contrato.FIND_ALL" result-set-mapping="MAP_CONTRATO_FIND_ALL">
+        <query>
+            select CONCAT(h.nombre, ' ', h.apellido) as nombrepersona,
+            h.documento as documento,
+            h.direccion as direccion,
+            h.telefono as telefono,
+            de.nombre as nombredependencia,
+            de.estado as dependenciaestado,
+            de.dependencia_padre as dependenciapadre,
+            ca.codigo as codcargo,
+            ca.nombre as nombrecargo,
+            ca.funcion as funcioncargo,
+            ca.competencias as competenciascargo
+            from contrato c,
+            dependencia de,
+            cargo ca,
+            hoja_vida h
+            where c.dependencia_cod = de.codigo
+            and c.hoja_vida_doc = h.documento
+            and c.cargo_cod = ca.codigo;
+        </query>
+    </named-native-query>
+
+    <named-native-query name="Nomina.LIQUIDACION_NOMINA_EMPLEADO"
+                        result-set-mapping="MAP_NOMINA_LIQUIDACION_NOMINA_EMPLEADO">
+        <query>
+            select ct.codigo as codigocontrato,
+            h.nombre as nombreempleado,
+            h.apellido as apellido,
+            ct.salario as salario,
+            cp.nombre as nombrecocepto,
+            CASE
+            WHEN cp.tipo = 'false' THEN 'deducido'
+            WHEN cp.tipo = 'true' THEN 'devengado'
+            END as tipo,
+            cp.formula as formula,
+            ct.salario * CAST(cp.formula AS float) as resultado,
+            p.fecha_inicio as periodoinicio,
+            p.fecha_fin as periodofin
+            from hoja_vida h,
+            contrato ct,
+            concepto cp,
+            nomina n,
+            periodo p
+            where h.documento = ?
+            and h.documento = ct.hoja_vida_doc
+            and ct.codigo = n.contrato_cod
+            and cp.codigo = n.concepto_cod
+            and p.codigo = n.periodo_cod
+            order by ct.hoja_vida_doc;
+
+        </query>
+    </named-native-query>
+
+    <named-native-query name="Nomina.LIQUIDACION_NOMINA_PERIODO" result-set-mapping="MAP_NOMINA_LIQUIDACION_NOMINA_PERIODO">
+        <query>
+            select p.codigo                               as periodo,
+            concat(h.nombre, ' ', h.apellido)             as nombrepersona,
+            contr.salario as salario,
+            concep.nombre as nombreconcepto,
+            CASE
+            WHEN concep.tipo = 'false' THEN 'deducido'
+            WHEN concep.tipo = 'true' THEN 'devengado'
+            END                                       as tipo,
+            concep.formula                           as formula,
+            contr.salario * CAST(concep.formula AS float) as resultado
+            from hoja_vida h,
+            contrato contr,
+            concepto concep,
+            nomina n,
+            periodo p
+            where n.periodo_cod = ?
+            and h.documento = contr.hoja_vida_doc
+            and contr.codigo = n.contrato_cod
+            and concep.codigo = n.concepto_cod
+            and p.codigo = n.periodo_cod;
+        </query>
+    </named-native-query>
+
+    <sql-result-set-mapping name="MAP_CONTRATO_ENCONTRAR_POR_DEPENDENCIA">
+        <column-result name="direccion"/>
+        <column-result name="telefono"/>
+        <column-result name="nombredependencia"/>
+        <column-result name="dependenciaestado"/>
+        <column-result name="dependenciapadre"/>
+    </sql-result-set-mapping>
+
+    <sql-result-set-mapping name="MAP_CONTRATO_ENCONTRAR_POR_CARGO">
+        <column-result name="direccion"/>
+        <column-result name="telefono"/>
+        <column-result name="nombrecargo"/>
+        <column-result name="funcion"/>
+        <column-result name="competencias"/>
+    </sql-result-set-mapping>
+
+    <sql-result-set-mapping name="MAP_CONTRATO_FIND_ALL">
+        <column-result name="nombrepersona"/>
+        <column-result name="documento"/>
+        <column-result name="direccion"/>
+        <column-result name="telefono"/>
+        <column-result name="nombredependencia"/>
+        <column-result name="dependenciaestado"/>
+        <column-result name="dependenciapadre"/>
+        <column-result name="codcargo"/>
+        <column-result name="nombrecargo"/>
+        <column-result name="funcioncargo"/>
+        <column-result name="competenciascargo"/>
+    </sql-result-set-mapping>
+
+    <sql-result-set-mapping name="MAP_NOMINA_LIQUIDACION_NOMINA_EMPLEADO">
+        <column-result name="codigocontrato"/>
+        <column-result name="nombreempleado"/>
+        <column-result name="apellido"/>
+        <column-result name="salario"/>
+        <column-result name="nombrecocepto"/>
+        <column-result name="formula"/>
+        <column-result name="resultado"/>
+        <column-result name="periodoinicio"/>
+        <column-result name="periodofin"/>
+        <column-result name="periodofin"/>
+    </sql-result-set-mapping>
+
+    <sql-result-set-mapping name="MAP_NOMINA_LIQUIDACION_NOMINA_PERIODO">
+        <column-result name="periodo"/>
+        <column-result name="nombrepersona"/>
+        <column-result name="salario"/>
+        <column-result name="nombreconcepto"/>
+        <column-result name="tipo"/>
+        <column-result name="formula"/>
+        <column-result name="resultado"/>
+    </sql-result-set-mapping>
+
+</entity-mappings>

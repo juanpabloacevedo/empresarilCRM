@@ -1,0 +1,46 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/comf-template-menu2.xhtml">
+    <ui:define name="head">Finanzas</ui:define>
+    <ui:define name="body">
+        <h:body>
+            <h:form>
+                <p:messages id="messages" globalOnly="true" autoUpdate="true" closable="true" showDetail="true"
+                            showSummary="true"/>
+                <div align="center">
+                    <br/><br/>
+                    <h:outputLabel value="BIENVENIDO "/>#{prin.usLoged}
+                    <h:outputLabel value="AL SISTEMA DE FINANZAS"/>
+                </div>
+                <p:tabView>
+                    <p:tab title="#{msg.headerFinanzas}">
+                        <p:panel style="width:1100px; height:800px" id="panelBusqueda"
+                                 header="#{msg.lbCrearCuentaContable}">
+                            <div align="center">
+                                <p:outputLabel for="pcDescripcion" value="#{msg.lbPlanContableDescripcion}"/>
+                                <p:inputText id="pcDescripcion" value="#{finanzas.descripcion}"/>
+
+                                <p:outputLabel for="pcNombre" value="#{msg.lbPlanContableNombre}"/>
+                                <p:inputText id="pcNombre" value="#{finanzas.nombre}"/>
+
+                                <p:outputLabel for="pcTipo" value="#{msg.lbPlanContableTipo}"/>
+                                <p:inputText id="pcTipo" value="#{finanzas.tipo}"/>
+
+                                <p:outputLabel for="pcVigencia" value="#{msg.lbPlanContableVigencia}"/>
+                                <p:inputText id="pcVigencia" value="#{finanzas.vigencia}"/>
+                                <br/><br/>
+
+                                <div align="center">
+                                    <p:commandButton value="#{msg.botonGuardar}" action="#{finanzas.crearPlanContable()}"
+                                                     icon="ui-icon-extlink" update="@form,panelResul"/>
+                                </div>
+                            </div>
+                        </p:panel>
+                    </p:tab>
+                </p:tabView>
+            </h:form>
+        </h:body>
+    </ui:define>
+</ui:composition>
