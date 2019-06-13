@@ -1,6 +1,6 @@
-co/com/ustaempresarial/modelo/crm/Recurso.class
-co/com/ustaempresarial/modelo/crm/Campania.class
-co/com/ustaempresarial/modelo/crm/Evento.class
-co/com/ustaempresarial/modelo/crm/Medio.class
-co/com/ustaempresarial/modelo/crm/Periodo.class
-co/com/ustaempresarial/modelo/crm/TipoMedio.class
+co\com\ustaempresarial\modelo\crm\Campania.class
+co\com\ustaempresarial\modelo\crm\Periodo.class
+co\com\ustaempresarial\modelo\crm\TipoMedio.class
+co\com\ustaempresarial\modelo\crm\Evento.class
+co\com\ustaempresarial\modelo\crm\Medio.class
+co\com\ustaempresarial\modelo\crm\Recurso.class

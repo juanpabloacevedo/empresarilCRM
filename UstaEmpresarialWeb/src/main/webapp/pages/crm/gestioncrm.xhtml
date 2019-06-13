@@ -68,7 +68,7 @@
 								<p:outputLabel for="crmCampaniaFechaInicio" value="#{msg.labelFechaInicio}"/>
 								<p:calendar id="crmCampaniaFechaInicio" value="#{crmCampania.campania.fechaInicio}" showOn="button" />
 								<p:outputLabel for="crmCampaniaFechaFin" value="#{msg.labelFechaFin}"/>
-								<p:calendar id="crmCampaniaFechaFin" value="#{crmCampania.campania.fechaFin}"/>
+								<p:calendar id="crmCampaniaFechaFin" value="#{crmCampania.campania.fechaFin}" showOn="button" />
 								<p:outputLabel for="crmPeriodoCodigo" value="#{msg.lbCRMPeriodoCodigo}"/>
 								<p:inputText id="crmPeriodoCodigo" value="#{crmCampania.campania.periodoCod}"/>
 								<p:outputLabel for="crmValor" value="#{msg.lbCRMValor}"/>
@@ -223,8 +223,7 @@
 
 					</p:tab>
 					
-					
-				<p:tab title="#{msg.headerCRMTipomedio}">
+					<p:tab title="#{msg.headerCRMTipomedio}">
 
 						<p:panel style="width:1100px; height:800px" id="panelBusqueda4"
 							header="#{msg.haderNombreCat}"  >
@@ -417,7 +416,7 @@
 					</p:tab>
 					<p:tab title="#{msg.headerCRMEvento}">
 
-						<p:panel style="width:1100px; height:800px" id="panelBusqueda5"
+						<p:panel style="width:1100px; height:800px" id="panelBusqueda6"
 							header="#{msg.haderNombreCat}"  >
 
 							<div align="center">
@@ -428,12 +427,12 @@
 
 								
 
-								<p:outputLabel for="crmEventooDescripcion" value="#{msg.labelDescripcionMedio}" />
+								<p:outputLabel for="crmEventoDescripcion" value="#{msg.labelDescripcionMedio}" />
 
 								<p:inputText id="crmEventoDescripcion" value="#{crmEvento.evento.descripcion}" />
 								<p:outputLabel for="crmEventoFecha" value="#{msg.labelFecha}" />
 
-								<p:Calendar id="crmEventoFecha" value="#{crmEvento.evento.fecha}" />							
+								<p:calendar id="crmEventoFecha" value="#{crmEvento.evento.fecha}" />							
 								
 								<p:outputLabel for="crmEventoCampacod" value="#{msg.labelDescripcionMedio}" />
 
@@ -452,7 +451,7 @@
 
 									<p:commandButton value="#{msg.botonGuardar}"
 										action="#{crm.crearPeriodo()}" icon="ui-icon-extlink"
-										update="@form,panelResul5" />
+										update="@form,panelResul6" />
 
 
 
@@ -462,7 +461,7 @@
 
 						</p:panel>
 
-						<p:panel style="width:1100px; height:800px" id="panelResul5"
+						<p:panel style="width:1100px; height:800px" id="panelResul6"
 							header="#{msg.haderNombreCat}" visible="#{fact.verPanel}">
 
 							<p:dataTable var="datos" value="#{fact.categoriaProductos}"

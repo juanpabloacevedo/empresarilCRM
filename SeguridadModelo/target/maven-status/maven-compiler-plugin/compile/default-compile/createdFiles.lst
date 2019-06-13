@@ -1,8 +1,8 @@
-co/com/ustaempresarial/seguridad/modelo/RolPermiso.class
-co/com/ustaempresarial/seguridad/modelo/RolPermisoPK.class
-co/com/ustaempresarial/seguridad/modelo/RolUsuarioPK.class
-co/com/ustaempresarial/seguridad/modelo/Rol.class
-co/com/ustaempresarial/seguridad/modelo/Permiso.class
-co/com/ustaempresarial/seguridad/modelo/UsuarioLog.class
-co/com/ustaempresarial/seguridad/modelo/RolUsuario.class
-co/com/ustaempresarial/seguridad/modelo/Usuario.class
+co\com\ustaempresarial\seguridad\modelo\UsuarioLog.class
+co\com\ustaempresarial\seguridad\modelo\RolUsuario.class
+co\com\ustaempresarial\seguridad\modelo\Permiso.class
+co\com\ustaempresarial\seguridad\modelo\RolUsuarioPK.class
+co\com\ustaempresarial\seguridad\modelo\RolPermisoPK.class
+co\com\ustaempresarial\seguridad\modelo\RolPermiso.class
+co\com\ustaempresarial\seguridad\modelo\Usuario.class
+co\com\ustaempresarial\seguridad\modelo\Rol.class
